@@ -4,9 +4,14 @@ class Main extends Phaser.State {
   }
 
   create() {
+    this.game.time.events.loop(2000, this.sim, this, 2000);
   }
 
   update() {
+  }
+
+  sim(delta) {
+    console.log(`sim ${delta}`)
   }
 
 }

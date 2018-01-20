@@ -1,15 +1,12 @@
-Brunch selfmade skeleton
+Vitiza
 ------------------------
 
-Ingrediens:
+Phase 1
+-------
 
-* ES6
-* SASS
-* uglifier
-* digest
-* gzip
-* auto-reload
-* Phaser-CE
+* simple Phaser game setup
+* main sim loop on client
+* growing population
 
 Usage
 -----
