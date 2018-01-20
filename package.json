@@ -1,0 +1,27 @@
+{
+  "name": "vitiza",
+  "version": "0.0.1",
+  "description": "vitiza the game",
+  "main": "app.js",
+  "scripts": {
+    "start": "brunch watch --server",
+    "prod": "brunch build --production"
+  },
+  "keywords": [
+    "game",
+    "simulation"
+  ],
+  "author": "Alessandro Di Maria",
+  "license": "MIT",
+  "devDependencies": {
+    "auto-reload-brunch": "~2.7.1",
+    "babel-brunch": "~6.1.1",
+    "brunch": "~2.10.12",
+    "digest-brunch": "~1.6.0",
+    "sass-brunch": "~2.10.4",
+    "uglify-js-brunch": "~2.10.0"
+  },
+  "dependencies": {
+    "phaser-ce": "~2.10.0"
+  }
+}
