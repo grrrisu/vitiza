@@ -1,17 +1,27 @@
+import { createWorld, getWorld } from 'javascripts/world'
+import { createLoop } from 'javascripts/loop'
+
 class Main extends Phaser.State {
 
   preload() {
   }
 
   create() {
-    this.game.time.events.loop(2000, this.sim, this, 2000);
+    createWorld()
+    this.simLoop = createLoop(this.game)
+
+    let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+    this.text = this.game.add.text(
+      this.game.world.centerX,
+      this.game.world.centerY,
+      "population",
+      style);
+    this.text.anchor.set(0.5);
   }
 
   update() {
-  }
-
-  sim(delta) {
-    console.log(`sim ${delta}`)
+    const { population } = getWorld()
+    this.text.setText(`population: ${population}`)
   }
 
 }
