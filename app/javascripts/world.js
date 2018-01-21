@@ -1,9 +1,10 @@
 let world = {
   population: {
     farmer:   1,
-    pawn:     3,
+    pawn:     0,
     vagrant:  0
-  }
+  },
+  food: 5
 }
 
 export const createWorld = () => {
@@ -16,4 +17,9 @@ export const getWorld = () => {
 
 export const setWorld = (newWorld) => {
   return world = newWorld
+}
+
+export const totalPoeple = (world) => {
+  const { population } = world
+  return population.farmer + population.pawn + population.vagrant
 }

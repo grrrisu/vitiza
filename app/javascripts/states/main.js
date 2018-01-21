@@ -1,4 +1,4 @@
-import { createWorld } from 'javascripts/world'
+import { createWorld, totalPoeple } from 'javascripts/world'
 import { createLoop } from 'javascripts/loop'
 
 class Main extends Phaser.State {
@@ -17,9 +17,8 @@ class Main extends Phaser.State {
   }
 
   apply(world) {
-    const { population } = world
-    const total = population.farmer + population.pawn + population.vagrant
-    this.text.setText(`population: ${total}`)
+    const total = totalPoeple(world)
+    this.text.setText(`population: ${total} \nfood: ${world.food}`)
   }
 
   createText() {
@@ -27,7 +26,7 @@ class Main extends Phaser.State {
     this.text = this.game.add.text(
       this.game.world.centerX,
       this.game.world.centerY,
-      "population",
+      "population \nfood",
       style);
     this.text.anchor.set(0.5);
   }
