@@ -24,15 +24,17 @@ const eat = (delta, world) => {
 }
 
 const harvest = (delta, world) => {
+  const { farmer, pawn } = world.population
+  const newFood = 5 * farmer + 1 * pawn
   return {
     ...world,
-    food: world.food + 5 * world.population.farmer
+    food: world.food + newFood
   }
 }
 
 const birth = (delta, world) => {
-  let { population, food } = world
-  let newBorn = Math.floor(food / 10)
+  const { population, food } = world
+  const newBorn = Math.floor(food / 10)
 
   return {
     ...world,
