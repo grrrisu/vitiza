@@ -12,7 +12,7 @@ module.exports = {
   },
 
   plugins: {
-    babel: {presets: ['es2015']}
+    babel: {presets: ['es2015', 'stage-3']}
   },
 
   npm: {

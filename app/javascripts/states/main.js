@@ -18,7 +18,8 @@ class Main extends Phaser.State {
 
   apply(world) {
     const { population } = world
-    this.text.setText(`population: ${population}`)
+    const total = population.farmer + population.pawn + population.vagrant
+    this.text.setText(`population: ${total}`)
   }
 
   createText() {

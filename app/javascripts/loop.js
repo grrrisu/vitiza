@@ -7,7 +7,10 @@ export const createLoop = (state) => {
 const sim = (delta, state) => {
   let { population } = getWorld()
   let newWorld = setWorld({
-    population: population + 10
+    population: {
+      ...population,
+      pawn: population.pawn + 1
+    }
   })
   state.apply(newWorld)
   console.log(`sim ${delta} ${newWorld.population}`)

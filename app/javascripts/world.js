@@ -1,5 +1,9 @@
 let world = {
-  population: 10
+  population: {
+    farmer:   1,
+    pawn:     3,
+    vagrant:  0
+  }
 }
 
 export const createWorld = () => {
