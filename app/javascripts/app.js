@@ -5,7 +5,7 @@ import Game from 'javascripts/game.js';
 const App = {
 
   init: function() {
-    return new Game(800, 600);
+    return new Game(825, 660);
   }
 
 };
