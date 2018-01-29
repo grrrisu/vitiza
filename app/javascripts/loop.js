@@ -13,7 +13,6 @@ const sim = (delta, state) => {
 
   state.apply(newWorld)
   setWorld(newWorld)
-  console.log(`sim ${delta} ${newWorld.food}`)
 }
 
 const eat = (delta, world) => {

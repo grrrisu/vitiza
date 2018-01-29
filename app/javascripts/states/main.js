@@ -10,9 +10,12 @@ class Main extends Phaser.State {
   }
 
   create() {
+    console.time('create')
+    this.fieldWidth = 55
     const world = createWorld()
-    this.simLoop = createLoop(this)
     this.createGameObjects(world)
+    this.simLoop = createLoop(this)
+    console.timeEnd('create')
     this.apply(world)
   }
 
@@ -20,21 +23,35 @@ class Main extends Phaser.State {
   }
 
   apply(world) {
+    console.time('apply')
+    this.applyMap(world, this.fieldWidth)
     this.applyText(world)
+    console.timeEnd('apply')
   }
 
   createGameObjects(world){
-    this.createMap(world)
+    this.createMap(world, this.fieldWidth)
     this.createText()
-    // this.game.world.children => [map, text]
   }
 
-  createMap(world){
-    let map = this.game.add.group()
+  createMap(world, width){
+    this.map = this.game.add.group()
     let { vegetation } = world
-    vegetation.forEach((field) => {
+    R.values(vegetation).forEach((field) => {
       let { x, y, type } = field
-      map.create(x * 55, y * 55, type)
+      this.map.create(x * width, y * width, type)
+    })
+  }
+
+  applyMap(world, width){
+    const { vegetation } = world
+    this.map.getAll().forEach((tile) => {
+      const {x , y} = tile.position
+      let field = vegetation[[x / width, y / width]]
+      if(tile.key !== field.type){
+        tile.destroy()
+        this.map.create(x, y, field.type)
+      }
     })
   }
 

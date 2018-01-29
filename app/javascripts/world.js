@@ -2,7 +2,7 @@ let world = {}
 
 const initialState = () => {
   return {
-    vegetation: [],
+    vegetation: {},
     population: {
       farmer:   1,
       pawn:     0,
@@ -20,16 +20,17 @@ const worldConfig = {
 
 const createVegatation = (config = worldConfig) => {
   const { width, height, forestRatio } = config
-  let vegetation = []
+  let vegetation = {}
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
-      let field = {}
+      let type = ''
       if (y < height * forestRatio){
-        field = {x: x, y: y, type: 'forest'}
+        type = 'forest'
       } else {
-        field = {x: x, y: y, type: 'plaine'}
+        type = 'plaine'
       }
-      vegetation.push(field)
+      const field = {x: x, y: y, type: type}
+      vegetation[[x,y]] = field
     }
   }
   return vegetation
