@@ -4,6 +4,7 @@ import { createLoop } from 'javascripts/loop'
 class Main extends Phaser.State {
 
   preload() {
+    // key == vegetation.type
     this.game.load.image('forest', 'images/assests/map/8_forest@2x.png')
     this.game.load.image('plaine', 'images/assests/map/3_grass@2x.png')
   }
@@ -11,7 +12,7 @@ class Main extends Phaser.State {
   create() {
     const world = createWorld()
     this.simLoop = createLoop(this)
-    this.createGameObjects()
+    this.createGameObjects(world)
     this.apply(world)
   }
 
@@ -19,26 +20,22 @@ class Main extends Phaser.State {
   }
 
   apply(world) {
-    const total = totalPoeple(world)
-    this.text.setText(`population: ${total} \nfood: ${world.food}`)
+    this.applyText(world)
   }
 
-  createGameObjects(){
-    this.createMap()
+  createGameObjects(world){
+    this.createMap(world)
     this.createText()
+    // this.game.world.children => [map, text]
   }
 
-  createMap(){
+  createMap(world){
     let map = this.game.add.group()
-    for (let x = 0; x < 15; x++) {
-      for (let y = 0; y < 12; y++) {
-        if (y < 8){
-          map.create(x * 55, y * 55, 'forest')
-        } else {
-          map.create(x * 55, y * 55, 'plaine')
-        }
-      }
-    }
+    let { vegetation } = world
+    vegetation.forEach((field) => {
+      let { x, y, type } = field
+      map.create(x * 55, y * 55, type)
+    })
   }
 
   createText() {
@@ -49,6 +46,11 @@ class Main extends Phaser.State {
       "population \nfood",
       style);
     this.text.anchor.set(0.5);
+  }
+
+  applyText(world) {
+    const total = totalPoeple(world)
+    this.text.setText(`population: ${total} \nfood: ${world.food}`)
   }
 
 }
