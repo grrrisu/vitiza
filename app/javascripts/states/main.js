@@ -7,6 +7,10 @@ class Main extends Phaser.State {
     // key == vegetation.type
     this.game.load.image('forest', 'images/assests/map/8_forest@2x.png')
     this.game.load.image('plaine', 'images/assests/map/3_grass@2x.png')
+
+    this.game.load.image('tower', 'images/assests/buildings/tower.png')
+    this.game.load.image('farm', 'images/assests/buildings/farm.png')
+    this.game.load.image('hut', 'images/assests/buildings/hut.png')
   }
 
   create() {
@@ -31,7 +35,17 @@ class Main extends Phaser.State {
 
   createGameObjects(world){
     this.createMap(world, this.fieldWidth)
+    this.createBuildings(world)
+    this.createGrid(world)
     this.createText()
+  }
+
+  createGrid(world){
+    let size =  this.fieldWidth * this.game.resolution
+    let color = 'rgba(20, 20, 20, 1)'
+    this.game.add.sprite(0, 0,
+      this.game.create.grid('grid', 15 * size, 12 * size, size, size, color)
+    );
   }
 
   createMap(world, width){
@@ -53,6 +67,11 @@ class Main extends Phaser.State {
         this.map.create(x, y, field.type)
       }
     })
+  }
+
+  createBuildings(world){
+    this.buildings = this.game.add.group()
+    const tower = this.buildings.create(7 * 55, 10 * 55, 'tower')
   }
 
   createText() {

@@ -5,11 +5,13 @@ export const createLoop = (state) => {
 }
 
 const sim = (delta, state) => {
+  console.time('sim')
   let newWorld = getWorld()
 
   newWorld = eat(delta, newWorld)
   newWorld = harvest(delta, newWorld)
   newWorld = birth(delta, newWorld)
+  console.timeEnd('sim')
 
   state.apply(newWorld)
   setWorld(newWorld)
