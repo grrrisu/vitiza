@@ -35,8 +35,8 @@ class Main extends Phaser.State {
 
   createGameObjects(world){
     this.createMap(world, this.fieldWidth)
-    this.createBuildings(world)
     this.createGrid(world)
+    this.createBuildings(world)
     this.createText()
   }
 
@@ -75,13 +75,14 @@ class Main extends Phaser.State {
   }
 
   createText() {
-    let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+    let style = { font: "34px Arial", fill: "#3D1616", align: "center" };
     this.text = this.game.add.text(
       this.game.world.centerX,
-      this.game.world.centerY,
+      this.game.world.top,
       "population \nfood",
       style);
-    this.text.anchor.set(0.5);
+    this.text.anchor.set(0.5, 0)
+    this.text.fixedToCamera = true
   }
 
   applyText(world) {
