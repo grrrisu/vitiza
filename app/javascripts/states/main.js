@@ -29,6 +29,7 @@ class Main extends Phaser.State {
   apply(world) {
     console.time('apply')
     this.applyMap(world, this.fieldWidth)
+    this.applyBuildings(world, this.fieldWidth)
     this.applyText(world)
     console.timeEnd('apply')
   }
@@ -71,7 +72,20 @@ class Main extends Phaser.State {
 
   createBuildings(world){
     this.buildings = this.game.add.group()
-    const tower = this.buildings.create(7 * 55, 10 * 55, 'tower')
+    let { buildings } = world
+    buildings.forEach((building) => {
+      let { position, type } = building
+      this.buildings.create(position.x * 55, position.y * 55, type)
+    })
+  }
+
+  applyBuildings(world, width){
+    const buildings = world
+    this.buildings.getAll().forEach((sprite) => {
+      const { x, y } = sprite.position
+      let building = R.find(propEq('position', {x: x / width, y: y / width }))(buildings)
+      // Stopped here ...
+    })
   }
 
   createText() {

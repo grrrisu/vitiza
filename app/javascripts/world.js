@@ -3,6 +3,7 @@ let world = {}
 const initialState = () => {
   return {
     vegetation: {},
+    buildings: [],
     population: {
       farmer:   1,
       pawn:     0,
@@ -36,11 +37,38 @@ const createVegatation = (config = worldConfig) => {
   return vegetation
 }
 
+const createBuildings = (config = worldConfig) =>{
+  const hq = {
+    type: 'tower',
+    position: {
+      x: 7,
+      y: 10
+    },
+    population: {
+      lord: 1,
+      gard: 1
+    }
+  }
+
+  const farm = {
+    type: 'farm',
+    position: {
+      x: 5,
+      y: 10
+    },
+    population: {
+      farmer: 1
+    }
+  }
+  return [hq, farm]
+}
+
 export const createWorld = () => {
   let world = initialState()
   let newWorld = {
     ...world,
-    vegetation: createVegatation()
+    vegetation: createVegatation(),
+    buildings: createBuildings(),
   }
   return setWorld(newWorld)
 }
