@@ -20,7 +20,7 @@ class Main extends Phaser.State {
     this.createGameObjects(world)
     this.simLoop = createLoop(this)
     console.timeEnd('create')
-    this.apply(world)
+    //this.apply(world)
   }
 
   update() {

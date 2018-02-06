@@ -94,11 +94,20 @@ export const applyWorld = (event) => {
 
 const reduce = ({type, payload}, world) => {
   switch(type){
+
     case 'updateFood':
       return{
         ...world,
         food: payload.food
       }
+
+    case 'updatePopulationAndFood':
+      return {
+        ...world,
+        population: R.mergeDeepLeft(payload.population, world.population),
+        food: payload.food
+      }
+
     default:
       return world
   }
