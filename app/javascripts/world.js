@@ -85,3 +85,21 @@ export const totalPoeple = (world) => {
   const { population } = world
   return population.farmer + population.pawn + population.vagrant
 }
+
+export const applyWorld = (event) => {
+  return setWorld(
+    reduce(event, getWorld())
+  )
+}
+
+const reduce = ({type, payload}, world) => {
+  switch(type){
+    case 'updateFood':
+      return{
+        ...world,
+        food: payload.food
+      }
+    default:
+      return world
+  }
+}

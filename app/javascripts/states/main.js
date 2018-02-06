@@ -83,7 +83,7 @@ class Main extends Phaser.State {
     const buildings = world
     this.buildings.getAll().forEach((sprite) => {
       const { x, y } = sprite.position
-      let building = R.find(propEq('position', {x: x / width, y: y / width }))(buildings)
+      //let building = R.find(propEq('position', {x: x / width, y: y / width }))(buildings)
       // Stopped here ...
     })
   }
