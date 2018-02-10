@@ -86,9 +86,9 @@ export const totalPoeple = (world) => {
   return population.farmer + population.pawn + population.vagrant
 }
 
-export const applyWorld = (event) => {
+export const applyWorld = (event, world) => {
   return setWorld(
-    reduce(event, getWorld())
+    reduce(event, world)
   )
 }
 

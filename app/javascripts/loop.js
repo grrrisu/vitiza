@@ -1,5 +1,5 @@
 import { applyWorld, getWorld, totalPoeple } from 'javascripts/world'
-//import { applyGame } from 'javascripts/states/main'
+import { applyGame } from 'javascripts/states/game_reducer'
 
 export const createLoop = (state) => {
   return state.game.time.events.loop(2000, sim, this, 2000, state);
@@ -27,8 +27,8 @@ const sim = (delta, state) => {
 }
 
 const dispatch = (event, state) => {
-  applyWorld(event)
-  state.apply(getWorld())
+  const world = applyWorld(event, getWorld())
+  applyGame(event, world, state)
 }
 
 const eat = (delta, world) => {
