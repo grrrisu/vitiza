@@ -16,19 +16,21 @@ const initialState = () => {
 const worldConfig = {
   width: 15,
   height: 12,
-  forestRatio: 2/3
+  clearingRadius: 4
 }
 
 const createVegatation = (config = worldConfig) => {
-  const { width, height, forestRatio } = config
+  const { width, height, clearingRadius } = config
   let vegetation = {}
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       let type = ''
-      if (y < height * forestRatio){
-        type = 'forest'
-      } else {
+      let withinRadius = Math.abs(y - height/2) + Math.abs(x - width/2)
+
+      if (withinRadius < clearingRadius){
         type = 'plaine'
+      } else {
+        type = 'forest'
       }
       const field = {x: x, y: y, type: type}
       vegetation[[x,y]] = field
@@ -42,7 +44,7 @@ const createBuildings = (config = worldConfig) =>{
     type: 'tower',
     position: {
       x: 7,
-      y: 10
+      y: 6
     },
     population: {
       lord: 1,
@@ -54,7 +56,7 @@ const createBuildings = (config = worldConfig) =>{
     type: 'farm',
     position: {
       x: 5,
-      y: 10
+      y: 6
     },
     population: {
       farmer: 1
@@ -84,4 +86,31 @@ export const setWorld = (newWorld) => {
 export const totalPoeple = (world) => {
   const { population } = world
   return population.farmer + population.pawn + population.vagrant
+}
+
+export const applyWorld = (event, world) => {
+  return setWorld(
+    reduce(event, world)
+  )
+}
+
+const reduce = ({type, payload}, world) => {
+  switch(type){
+
+    case 'updateFood':
+      return{
+        ...world,
+        food: payload.food
+      }
+
+    case 'updatePopulationAndFood':
+      return {
+        ...world,
+        population: R.mergeDeepLeft(payload.population, world.population),
+        food: payload.food
+      }
+
+    default:
+      return world
+  }
 }

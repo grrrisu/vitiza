@@ -20,7 +20,6 @@ class Main extends Phaser.State {
     this.createGameObjects(world)
     this.simLoop = createLoop(this)
     console.timeEnd('create')
-    this.apply(world)
   }
 
   update() {
@@ -30,7 +29,7 @@ class Main extends Phaser.State {
     console.time('apply')
     this.applyMap(world, this.fieldWidth)
     this.applyBuildings(world, this.fieldWidth)
-    this.applyText(world)
+    //this.applyText(world)
     console.timeEnd('apply')
   }
 
@@ -83,7 +82,7 @@ class Main extends Phaser.State {
     const buildings = world
     this.buildings.getAll().forEach((sprite) => {
       const { x, y } = sprite.position
-      let building = R.find(propEq('position', {x: x / width, y: y / width }))(buildings)
+      //let building = R.find(propEq('position', {x: x / width, y: y / width }))(buildings)
       // Stopped here ...
     })
   }
@@ -97,11 +96,6 @@ class Main extends Phaser.State {
       style);
     this.text.anchor.set(0.5, 0)
     this.text.fixedToCamera = true
-  }
-
-  applyText(world) {
-    const total = totalPoeple(world)
-    this.text.setText(`population: ${total} \nfood: ${world.food}`)
   }
 
 }
