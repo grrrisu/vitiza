@@ -1,3 +1,12 @@
+Phase 3
+-------
+
+* show population details
+* user input
+* build a farm, needs sickle and seed (food)
+* sim each building
+* move population to building
+
 Phase 2
 -------
 
