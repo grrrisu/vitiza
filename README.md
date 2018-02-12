@@ -1,13 +1,6 @@
 Vitiza
 ------------------------
 
-Phase 1
--------
-
-* simple Phaser game setup
-* main sim loop on client
-* growing population
-
 Usage
 -----
 

@@ -19,7 +19,8 @@ module.exports = {
     globals:{
       PIXI:   'phaser-ce/build/custom/pixi',
       p2:     'phaser-ce/build/custom/p2',
-      Phaser: 'phaser-ce'
+      Phaser: 'phaser-ce',
+      R:      'ramda'
     }
   }
 };
