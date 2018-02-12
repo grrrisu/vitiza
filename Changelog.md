@@ -5,6 +5,7 @@ Phase 2
 * fields forest, plaine
 * buildings HQ, farm, hut
 * pawn need a hut, hut needs a plaine, otherwise vagrant
+* event based simulation
 
 
 Phase 1
