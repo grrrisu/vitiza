@@ -39,6 +39,17 @@ const createVegatation = (config = worldConfig) => {
   return vegetation
 }
 
+const createBuilding = (type, x, y, population) => {
+  return {
+    type: type,
+    position: {
+      x: x,
+      y: y
+    },
+    population: pop
+  }
+}
+
 const createBuildings = (config = worldConfig) =>{
   const hq = {
     type: 'tower',
@@ -110,7 +121,23 @@ const reduce = ({type, payload}, world) => {
         food: payload.food
       }
 
+    case 'updatePopulation':
+      return {
+        ...world,
+        population: R.mergeDeepLeft(payload.population, world.population)
+      }
+
+    case 'newBuilding':
+    return {
+      ...world,
+      buildings: [
+        ...world.buildings,
+        payload.building
+      ]
+    }
+
     default:
+      console.log(`WARNING: unknown type ${type}`)
       return world
   }
 }

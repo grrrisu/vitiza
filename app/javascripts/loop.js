@@ -27,8 +27,16 @@ const sim = (delta, state) => {
 }
 
 const dispatch = (event, state) => {
+  if(event.type === 'void') return null
+
   const world = applyWorld(event, getWorld())
   applyGame(event, world, state)
+
+  if(event.followUpEvents){
+    event.followUpEvents.forEach((followEvent) => {
+      dispatch(followEvent.callback(followEvent.arguments, world), state)
+    })
+  }
 }
 
 const eat = (delta, world) => {
@@ -56,6 +64,10 @@ const birth = (delta, world) => {
   const { population, food } = world
   const newBorn = Math.floor(food / 10)
 
+  if(newBorn == 0){
+    return {type: 'void'}
+  }
+
   return {
     type: 'updatePopulationAndFood',
     payload: {
@@ -64,6 +76,62 @@ const birth = (delta, world) => {
         pawn: population.pawn + newBorn
       },
       food: food - newBorn * 10
+    },
+    followUpEvents: R.times((n) => {
+      return {
+        callback: settle,
+        arguments: {
+          type: 'pawn'
+        }
+      }
+    }, newBorn)
+  }
+}
+
+const settle = (args, world) => {
+
+  let buildingPositions = world.buildings.reduce((pos, building) => {
+    pos.push(building.position)
+    return pos
+  }, [])
+
+  let includesPosition = (field) => {
+    return R.none(R.equals({x: field.x, y: field.y}), buildingPositions)
+  }
+
+  const freeFields =
+    R.filter(includesPosition,
+      R.filter(R.propEq('type', 'plaine'),
+        R.values(world.vegetation)
+      )
+    )
+
+  if(freeFields.length > 0) {
+    const freeField = freeFields[Math.floor(Math.random() * freeFields.length)]
+    return {
+      type: 'newBuilding',
+      payload: {
+        building: {
+          type: 'hut',
+          position: {
+            x: freeField.x,
+            y: freeField.y
+          },
+          population: {
+            pawn: 1
+          }
+        }
+      }
+    }
+  } else {
+    return {
+      type: 'updatePopulation',
+      payload: {
+        population: {
+          pawn: world.population.pawn - 1,
+          vagrant: world.population.vagrant + 1
+        }
+      }
     }
   }
 }
